@@ -1,4 +1,11 @@
 {
+  "name": "veloria-main",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd frontend && npm start",
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "cd frontend && npm run dev"
+  },
   "dependencies": {
     "@met4citizen/talkinghead": "^1.6.0",
     "three": "^0.180.0"
