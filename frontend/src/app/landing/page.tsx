@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Brain, MessageCircle, Shield, Zap, Users, TrendingUp, Award, ArrowRight, Play, Star, Building2, Globe, Clock } from "lucide-react";
 import BlurFade from "@/components/ui/blur-fade";
+import HeroFuturistic from "@/components/ui/hero-futuristic";
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
@@ -72,57 +73,15 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-              Breakthrough AI from
-              <br />
-              <span className="text-blue-600">Therapy to Deployment</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-              Veloria delivers proven AI therapy, evaluations, and outcomes to healthcare providers, 
-              enterprises, and mental health organizations worldwide.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button size="lg" className="bg-black hover:bg-gray-800 text-white px-8">
-                Book a Demo
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="px-8">
-                Build AI Therapy
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </div>
-            
-            {/* Trust Indicators */}
-            <div className="text-sm text-gray-500 mb-8">
-              Veloria works with Healthcare Providers, Mental Health Organizations & Enterprises
-            </div>
-            
-            {/* Logo Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center opacity-60">
-              <div className="flex items-center justify-center">
-                <Building2 className="w-8 h-8 text-gray-400" />
-                <span className="ml-2 font-semibold text-gray-400">Healthcare</span>
-              </div>
-              <div className="flex items-center justify-center">
-                <Globe className="w-8 h-8 text-gray-400" />
-                <span className="ml-2 font-semibold text-gray-400">Enterprise</span>
-              </div>
-              <div className="flex items-center justify-center">
-                <Shield className="w-8 h-8 text-gray-400" />
-                <span className="ml-2 font-semibold text-gray-400">Government</span>
-              </div>
-              <div className="flex items-center justify-center">
-                <Brain className="w-8 h-8 text-gray-400" />
-                <span className="ml-2 font-semibold text-gray-400">Research</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Futuristic Hero Section */}
+      <HeroFuturistic 
+        title="Breakthrough AI Therapy"
+        subtitle="Revolutionary mental health solutions powered by advanced AI, voice interaction, and immersive 3D experiences"
+        buttonText="Explore Solutions"
+        onButtonClick={() => {
+          document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+      />
 
       {/* Full-Stack AI Solutions */}
       <section className="py-20 bg-gray-50" id="solutions">
