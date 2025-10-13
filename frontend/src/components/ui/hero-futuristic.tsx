@@ -2,6 +2,7 @@
 
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
 import { useAspect } from '@react-three/drei';
+import Brain3D from './brain-3d';
 import { useMemo, useRef, useState, useEffect } from 'react';
 import * as THREE from 'three/webgpu';
 import { bloom } from 'three/examples/jsm/tsl/display/BloomNode.js';
@@ -265,9 +266,23 @@ export const HeroFuturistic = ({
           return renderer;
         }}
         className="absolute inset-0"
+        camera={{ position: [0, 0, 5], fov: 75 }}
       >
         <PostProcessing fullScreenEffect={true} />
         <Scene />
+        
+        {/* 3D Brain Model */}
+        <Brain3D 
+          scale={0.8}
+          position={[2, 0, 0]}
+          rotationSpeed={0.008}
+          pulseIntensity={0.15}
+        />
+        
+        {/* Ambient lighting for the brain */}
+        <ambientLight intensity={0.3} />
+        <pointLight position={[10, 10, 10]} intensity={0.5} color="#4f46e5" />
+        <pointLight position={[-10, -10, 10]} intensity={0.3} color="#06b6d4" />
       </Canvas>
     </div>
   );
