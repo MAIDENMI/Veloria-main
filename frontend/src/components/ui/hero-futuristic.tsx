@@ -2,177 +2,45 @@
 
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
 import { useAspect } from '@react-three/drei';
-import Brain3D from './brain-3d';
+import RealBrain3D from './real-brain-3d';
 import { useMemo, useRef, useState, useEffect } from 'react';
-import * as THREE from 'three/webgpu';
-import { bloom } from 'three/examples/jsm/tsl/display/BloomNode.js';
+import * as THREE from 'three';
 import { Mesh } from 'three';
 
-import {
-  abs,
-  blendScreen,
-  float,
-  mod,
-  mx_cell_noise_float,
-  oneMinus,
-  smoothstep,
-  texture,
-  uniform,
-  uv,
-  vec2,
-  vec3,
-  pass,
-  mix,
-  add
-} from 'three/tsl';
-
-// Procedural generation - no external textures needed
-
-extend(THREE as any);
-
-// Post Processing component
-const PostProcessing = ({
-  strength = 1,
-  threshold = 1,
-  fullScreenEffect = true,
-}: {
-  strength?: number;
-  threshold?: number;
-  fullScreenEffect?: boolean;
-}) => {
-  const { gl, scene, camera } = useThree();
-  const progressRef = useRef({ value: 0 });
-
-  const render = useMemo(() => {
-    const postProcessing = new THREE.PostProcessing(gl as any);
-    const scenePass = pass(scene, camera);
-    const scenePassColor = scenePass.getTextureNode('output');
-    const bloomPass = bloom(scenePassColor, strength, 0.5, threshold);
-
-    // Create the scanning effect uniform
-    const uScanProgress = uniform(0);
-    progressRef.current = uScanProgress;
-
-    // Create a red overlay that follows the scan line
-    const scanPos = float(uScanProgress.value);
-    const uvY = uv().y;
-    const scanWidth = float(0.05);
-    const scanLine = smoothstep(0, scanWidth, abs(uvY.sub(scanPos)));
-    const redOverlay = vec3(1, 0, 0).mul(oneMinus(scanLine)).mul(0.4);
-
-    // Mix the original scene with the red overlay
-    const withScanEffect = mix(
-      scenePassColor,
-      add(scenePassColor, redOverlay),
-      fullScreenEffect ? smoothstep(0.9, 1.0, oneMinus(scanLine)) : 1.0
-    );
-
-    // Add bloom effect after scan effect
-    const final = withScanEffect.add(bloomPass);
-
-    postProcessing.outputNode = final;
-
-    return postProcessing;
-  }, [camera, gl, scene, strength, threshold, fullScreenEffect]);
-
-  useFrame(({ clock }) => {
-    // Animate the scan line from top to bottom
-    progressRef.current.value = (Math.sin(clock.getElapsedTime() * 0.5) * 0.5 + 0.5);
-    render.renderAsync();
-  }, 1);
-
-  return null;
-};
+// Removed complex WebGPU code for better compatibility
 
 const WIDTH = 300;
 const HEIGHT = 300;
 
-const Scene = () => {
-  const meshRef = useRef<Mesh>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    // Show immediately since we're using procedural generation
-    setVisible(true);
-  }, []);
-
-  const { material, uniforms } = useMemo(() => {
-    const uPointer = uniform(new THREE.Vector2(0));
-    const uProgress = uniform(0);
-    const uTime = uniform(0);
-
-    // Create procedural pattern instead of using textures
-    const aspect = float(WIDTH).div(HEIGHT);
-    const tUv = vec2(uv().x.mul(aspect), uv().y);
-
-    // Create a grid pattern
-    const tiling = vec2(60.0);
-    const tiledUv = mod(tUv.mul(tiling), 2.0).sub(1.0);
-
-    // Generate noise-based pattern
-    const brightness = mx_cell_noise_float(tUv.mul(tiling).div(4));
-    
-    // Create dots pattern
-    const dist = float(tiledUv.length());
-    const dot = float(smoothstep(0.6, 0.5, dist)).mul(brightness);
-
-    // Create flowing effect based on progress
-    const flow = oneMinus(smoothstep(0, 0.05, abs(uv().y.sub(uProgress))));
-
-    // Create the mask with red color
-    const mask = dot.mul(flow).mul(vec3(2, 0.1, 0.1));
-
-    // Base color with subtle gradient
-    const baseColor = vec3(0.1, 0.1, 0.2).add(
-      vec3(0.1, 0.05, 0.1).mul(uv().y)
-    );
-
-    // Combine base color with mask
-    const final = blendScreen(baseColor, mask);
-
-    const material = new THREE.MeshBasicNodeMaterial({
-      colorNode: final,
-      transparent: true,
-      opacity: 0,
-    });
-
-    return {
-      material,
-      uniforms: {
-        uPointer,
-        uProgress,
-        uTime,
-      },
-    };
-  }, []);
-
-  const [w, h] = useAspect(WIDTH, HEIGHT);
-
-  useFrame(({ clock, pointer }) => {
-    uniforms.uProgress.value = (Math.sin(clock.getElapsedTime() * 0.5) * 0.5 + 0.5);
-    uniforms.uTime.value = clock.getElapsedTime();
-    uniforms.uPointer.value = pointer;
-    
-    // Smooth appearance
-    if (meshRef.current && 'material' in meshRef.current && meshRef.current.material) {
-      const mat = meshRef.current.material as any;
-      if ('opacity' in mat) {
-        mat.opacity = THREE.MathUtils.lerp(
-          mat.opacity,
-          visible ? 0.8 : 0,
-          0.07
-        );
-      }
+// Simple animated brain component
+const BrainMesh = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  
+  useFrame(({ clock }) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = clock.elapsedTime * 0.3;
+      meshRef.current.rotation.x = Math.sin(clock.elapsedTime * 0.5) * 0.1;
+      
+      const pulse = 1 + Math.sin(clock.elapsedTime * 2) * 0.1;
+      meshRef.current.scale.setScalar(pulse);
     }
   });
 
-  const scaleFactor = 0.40;
   return (
-    <mesh ref={meshRef} scale={[w * scaleFactor, h * scaleFactor, 1]} material={material}>
-      <planeGeometry />
+    <mesh ref={meshRef}>
+      <sphereGeometry args={[1.5, 32, 32]} />
+      <meshStandardMaterial 
+        color="#8b5cf6" 
+        transparent 
+        opacity={0.8}
+        emissive="#4c1d95"
+        emissiveIntensity={0.3}
+      />
     </mesh>
   );
 };
+
+// Removed complex Scene component for simplicity
 
 interface HeroFuturisticProps {
   title?: string;
@@ -259,30 +127,22 @@ export const HeroFuturistic = ({
 
       {/* 3D Canvas */}
       <Canvas
-        flat
-        gl={async (props) => {
-          const renderer = new THREE.WebGPURenderer(props as any);
-          await renderer.init();
-          return renderer;
-        }}
         className="absolute inset-0"
-        camera={{ position: [0, 0, 5], fov: 75 }}
+        camera={{ position: [0, 0, 8], fov: 60 }}
       >
-        <PostProcessing fullScreenEffect={true} />
-        <Scene />
-        
-        {/* 3D Brain Model */}
-        <Brain3D 
-          scale={0.8}
-          position={[2, 0, 0]}
-          rotationSpeed={0.008}
-          pulseIntensity={0.15}
+        {/* Real 3D Brain Model */}
+        <RealBrain3D 
+          scale={1.2}
+          position={[0, 0, 0]}
+          rotationSpeed={0.015}
         />
         
-        {/* Ambient lighting for the brain */}
-        <ambientLight intensity={0.3} />
-        <pointLight position={[10, 10, 10]} intensity={0.5} color="#4f46e5" />
-        <pointLight position={[-10, -10, 10]} intensity={0.3} color="#06b6d4" />
+        {/* Cool, clinical lighting for holographic effect */}
+        <ambientLight intensity={0.3} color="#e0f7fa" />
+        <pointLight position={[10, 10, 10]} intensity={1.2} color="#40e0d0" />
+        <pointLight position={[-10, -10, 10]} intensity={1.0} color="#87ceeb" />
+        <pointLight position={[0, 10, -10]} intensity={0.8} color="#b0e0e6" />
+        <directionalLight position={[0, 0, 15]} intensity={0.6} color="#f0f8ff" />
       </Canvas>
     </div>
   );
