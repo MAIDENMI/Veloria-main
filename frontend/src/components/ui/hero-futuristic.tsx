@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
-import { useAspect, useTexture } from '@react-three/drei';
+import { useAspect } from '@react-three/drei';
 import { useMemo, useRef, useState, useEffect } from 'react';
 import * as THREE from 'three/webgpu';
 import { bloom } from 'three/examples/jsm/tsl/display/BloomNode.js';
@@ -25,9 +25,7 @@ import {
   add
 } from 'three/tsl';
 
-// Using Unsplash images for the textures
-const TEXTUREMAP = { src: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop' };
-const DEPTHMAP = { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&auto=format' };
+// Procedural generation - no external textures needed
 
 extend(THREE as any);
 
@@ -89,49 +87,47 @@ const WIDTH = 300;
 const HEIGHT = 300;
 
 const Scene = () => {
-  const [rawMap, depthMap] = useTexture([TEXTUREMAP.src, DEPTHMAP.src]);
-
   const meshRef = useRef<Mesh>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Show image after textures load
-    if (rawMap && depthMap) {
-      setVisible(true);
-    }
-  }, [rawMap, depthMap]);
+    // Show immediately since we're using procedural generation
+    setVisible(true);
+  }, []);
 
   const { material, uniforms } = useMemo(() => {
     const uPointer = uniform(new THREE.Vector2(0));
     const uProgress = uniform(0);
+    const uTime = uniform(0);
 
-    const strength = 0.01;
-
-    const tDepthMap = texture(depthMap);
-
-    const tMap = texture(
-      rawMap,
-      uv().add(tDepthMap.r.mul(uPointer).mul(strength))
-    );
-
+    // Create procedural pattern instead of using textures
     const aspect = float(WIDTH).div(HEIGHT);
     const tUv = vec2(uv().x.mul(aspect), uv().y);
 
-    const tiling = vec2(120.0);
+    // Create a grid pattern
+    const tiling = vec2(60.0);
     const tiledUv = mod(tUv.mul(tiling), 2.0).sub(1.0);
 
-    const brightness = mx_cell_noise_float(tUv.mul(tiling).div(2));
-
+    // Generate noise-based pattern
+    const brightness = mx_cell_noise_float(tUv.mul(tiling).div(4));
+    
+    // Create dots pattern
     const dist = float(tiledUv.length());
-    const dot = float(smoothstep(0.5, 0.49, dist)).mul(brightness);
+    const dot = float(smoothstep(0.6, 0.5, dist)).mul(brightness);
 
-    const depth = tDepthMap;
+    // Create flowing effect based on progress
+    const flow = oneMinus(smoothstep(0, 0.05, abs(uv().y.sub(uProgress))));
 
-    const flow = oneMinus(smoothstep(0, 0.02, abs(depth.sub(uProgress))));
+    // Create the mask with red color
+    const mask = dot.mul(flow).mul(vec3(2, 0.1, 0.1));
 
-    const mask = dot.mul(flow).mul(vec3(10, 0, 0));
+    // Base color with subtle gradient
+    const baseColor = vec3(0.1, 0.1, 0.2).add(
+      vec3(0.1, 0.05, 0.1).mul(uv().y)
+    );
 
-    const final = blendScreen(tMap, mask);
+    // Combine base color with mask
+    const final = blendScreen(baseColor, mask);
 
     const material = new THREE.MeshBasicNodeMaterial({
       colorNode: final,
@@ -144,29 +140,29 @@ const Scene = () => {
       uniforms: {
         uPointer,
         uProgress,
+        uTime,
       },
     };
-  }, [rawMap, depthMap]);
+  }, []);
 
   const [w, h] = useAspect(WIDTH, HEIGHT);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock, pointer }) => {
     uniforms.uProgress.value = (Math.sin(clock.getElapsedTime() * 0.5) * 0.5 + 0.5);
+    uniforms.uTime.value = clock.getElapsedTime();
+    uniforms.uPointer.value = pointer;
+    
     // Smooth appearance
     if (meshRef.current && 'material' in meshRef.current && meshRef.current.material) {
       const mat = meshRef.current.material as any;
       if ('opacity' in mat) {
         mat.opacity = THREE.MathUtils.lerp(
           mat.opacity,
-          visible ? 1 : 0,
+          visible ? 0.8 : 0,
           0.07
         );
       }
     }
-  });
-
-  useFrame(({ pointer }) => {
-    uniforms.uPointer.value = pointer;
   });
 
   const scaleFactor = 0.40;
