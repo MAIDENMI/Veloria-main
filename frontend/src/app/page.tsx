@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import { AnimatedFeatureCard } from "@/components/ui/feature-card-1";
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
@@ -14,27 +14,28 @@ export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // Redirect to login if not authenticated
+  // Redirect to landing page for non-authenticated users
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
+    if (status !== "loading" && !session) {
+      router.push("/landing");
     }
-  }, [status, router]);
+  }, [status, session, router]);
 
   // Show loading while checking auth
-  if (status === 'loading' || status === 'unauthenticated') {
+  if (status === 'loading') {
     return (
-      <div className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">
-        <AnimatedGradientBackground audioLevel={0} isListening={false} hoverColor={null} />
-        <div className="relative z-10 flex flex-col items-center gap-4">
-          <div className="relative w-16 h-16">
-            <div className="absolute inset-0 rounded-full border-4 border-purple-500/20"></div>
-            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-purple-500 animate-spin"></div>
-          </div>
-          <p className="text-sm text-muted-foreground">Loading...</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="relative w-16 h-16">
+          <div className="absolute inset-0 rounded-full border-4 border-purple-500/20"></div>
+          <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-purple-500 animate-spin"></div>
         </div>
       </div>
     );
+  }
+
+  // Redirect if not authenticated
+  if (!session) {
+    return null;
   }
 
   return (
