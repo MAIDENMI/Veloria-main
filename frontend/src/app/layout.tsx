@@ -14,8 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Veloria - AI Therapy Platform",
-  description: "Your personal AI therapy companion",
+  title: "Veloria - AI Therapy",
+  description: "Your personal AI therapy companion providing personalized mental health support",
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
