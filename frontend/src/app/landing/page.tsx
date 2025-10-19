@@ -634,7 +634,7 @@ export default function LandingPage() {
       <footer className="bg-white py-16 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <BlurFade delay={0.1}>
-            <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-8">
               <BlurFade delay={0.2}>
                 <div className="flex items-center mb-4 md:mb-0">
                   <Image 
@@ -653,6 +653,14 @@ export default function LandingPage() {
                   <span>© 2024 Veloria</span>
                 </div>
               </BlurFade>
+            </div>
+          </BlurFade>
+          
+          <BlurFade delay={0.4}>
+            <div className="text-center border-t border-gray-200 pt-6">
+              <p className="text-sm text-gray-500">
+                Veloria does not replace professional healthcare or therapy services.
+              </p>
             </div>
           </BlurFade>
         </div>
