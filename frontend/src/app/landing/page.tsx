@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Brain, MessageCircle, Shield, Heart, Clock, Sparkles } from "lucide-react";
 import BlurFade from "@/components/ui/blur-fade";
 import Image from "next/image";
+import { trackEvent } from "@/components/GoogleAnalytics";
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
@@ -17,13 +18,7 @@ export default function LandingPage() {
     e.preventDefault();
     
     // Track email form submission
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'submit', {
-        event_category: 'engagement',
-        event_label: 'email_form_submit',
-        value: 1
-      });
-    }
+    trackEvent('submit', 'engagement', 'email_form_submit', 1);
     
     // Redirect to Google Form for early access signup
     window.open('https://docs.google.com/forms/d/e/1FAIpQLSfY-zP_9lekDjqvTtvDpZTxsFyqKwHHkHe4ZU1jLkqMN7VbUg/viewform?usp=dialog', '_blank');
@@ -31,13 +26,7 @@ export default function LandingPage() {
 
   const handleGetEarlyAccess = () => {
     // Track Google Analytics event
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'click', {
-        event_category: 'engagement',
-        event_label: 'get_early_access',
-        value: 1
-      });
-    }
+    trackEvent('click', 'engagement', 'get_early_access', 1);
     
     // Redirect to Google Form for early access signup
     window.open('https://docs.google.com/forms/d/e/1FAIpQLSfY-zP_9lekDjqvTtvDpZTxsFyqKwHHkHe4ZU1jLkqMN7VbUg/viewform?usp=dialog', '_blank');
