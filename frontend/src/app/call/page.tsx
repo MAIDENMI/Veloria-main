@@ -109,6 +109,10 @@ export default function CallPage() {
       console.log('✅ Audio level monitoring started');
     } catch (error) {
       console.error('❌ Error starting audio level monitoring:', error);
+      if (error instanceof DOMException && error.name === 'NotAllowedError') {
+        setPermissionError('Microphone access is required for voice chat. Please allow microphone access in your browser settings and refresh the page.');
+        setShowPermissionHelp(true);
+      }
     }
   };
 

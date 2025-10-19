@@ -7,6 +7,16 @@
     <link rel="icon" type="image/png" href="logon2.png">
     <link rel="shortcut icon" type="image/png" href="logon2.png">
     <link rel="apple-touch-icon" href="logon2.png">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VG5C7LW712"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VG5C7LW712');
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -202,11 +212,27 @@
 
     <script>
         function openGoogleForm() {
+            // Track Google Analytics event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'click', {
+                    event_category: 'engagement',
+                    event_label: 'get_early_access',
+                    value: 1
+                });
+            }
             window.open('https://docs.google.com/forms/d/e/1FAIpQLSfY-zP_9lekDjqvTtvDpZTxsFyqKwHHkHe4ZU1jLkqMN7VbUg/viewform?usp=dialog', '_blank');
         }
 
         function handleSubmit(event) {
             event.preventDefault();
+            // Track email form submission
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'submit', {
+                    event_category: 'engagement',
+                    event_label: 'email_form_submit',
+                    value: 1
+                });
+            }
             // Redirect to Google Form for early access signup
             openGoogleForm();
         }

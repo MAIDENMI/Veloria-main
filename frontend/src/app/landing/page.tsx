@@ -16,11 +16,29 @@ export default function LandingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Track email form submission
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'submit', {
+        event_category: 'engagement',
+        event_label: 'email_form_submit',
+        value: 1
+      });
+    }
+    
     // Redirect to Google Form for early access signup
     window.open('https://docs.google.com/forms/d/e/1FAIpQLSfY-zP_9lekDjqvTtvDpZTxsFyqKwHHkHe4ZU1jLkqMN7VbUg/viewform?usp=dialog', '_blank');
   };
 
   const handleGetEarlyAccess = () => {
+    // Track Google Analytics event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'click', {
+        event_category: 'engagement',
+        event_label: 'get_early_access',
+        value: 1
+      });
+    }
+    
     // Redirect to Google Form for early access signup
     window.open('https://docs.google.com/forms/d/e/1FAIpQLSfY-zP_9lekDjqvTtvDpZTxsFyqKwHHkHe4ZU1jLkqMN7VbUg/viewform?usp=dialog', '_blank');
   };

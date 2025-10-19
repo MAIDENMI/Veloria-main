@@ -340,6 +340,24 @@ ${conversationText}`;
       
       // Parse the JSON response
       try {
+        // Check if this is a fallback response (quota exceeded)
+        if (data.response.includes("experiencing high demand") || data.response.includes("quota")) {
+          console.warn('API quota exceeded, using fallback emotion analysis');
+          setEmotionAnalysis({
+            happiness: [],
+            sadness: [],
+            anger: [],
+            fear: [],
+            neutral: [{
+              emotion: 'neutral' as const,
+              userMessage: 'Analysis unavailable',
+              agentQuestion: 'API quota exceeded',
+              agentResponse: 'Please try again later when API quota resets'
+            }]
+          });
+          return;
+        }
+
         // Remove markdown code blocks if present
         let jsonText = data.response.trim();
         if (jsonText.startsWith('```')) {
@@ -350,12 +368,18 @@ ${conversationText}`;
         setEmotionAnalysis(analysis);
       } catch (parseError) {
         console.error('Error parsing emotion analysis:', parseError);
+        console.error('Response was:', data.response);
         setEmotionAnalysis({
           happiness: [],
           sadness: [],
           anger: [],
           fear: [],
-          neutral: []
+          neutral: [{
+            emotion: 'neutral' as const,
+            userMessage: 'Parse error occurred',
+            agentQuestion: 'Analysis failed',
+            agentResponse: 'Invalid response format - please try again'
+          }]
         });
       }
     } catch (error) {
@@ -421,22 +445,46 @@ ${conversationText}`;
       
       if (emotionResponse.ok) {
         const emotionData = await emotionResponse.json();
-        let jsonText = emotionData.response.trim();
-        if (jsonText.startsWith('```')) {
-          jsonText = jsonText.replace(/```json\n?/g, '').replace(/```\n?/g, '');
-        }
-        try {
-          emotions = JSON.parse(jsonText);
-          console.log('✅ Emotions analyzed:', emotions);
-        } catch (parseError) {
-          console.error('❌ Failed to parse emotion JSON:', parseError);
+        
+        // Check if this is a fallback response (quota exceeded)
+        if (emotionData.response.includes("experiencing high demand") || emotionData.response.includes("quota")) {
+          console.warn('API quota exceeded during PDF generation, using fallback emotion analysis');
           emotions = {
             happiness: [],
             sadness: [],
             anger: [],
             fear: [],
-            neutral: []
+            neutral: [{
+              emotion: 'neutral' as const,
+              userMessage: 'Analysis unavailable',
+              agentQuestion: 'API quota exceeded',
+              agentResponse: 'Please try again later when API quota resets'
+            }]
           };
+        } else {
+          let jsonText = emotionData.response.trim();
+          if (jsonText.startsWith('```')) {
+            jsonText = jsonText.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+          }
+          try {
+            emotions = JSON.parse(jsonText);
+            console.log('✅ Emotions analyzed:', emotions);
+          } catch (parseError) {
+            console.error('❌ Failed to parse emotion JSON:', parseError);
+            console.error('Response was:', emotionData.response);
+            emotions = {
+              happiness: [],
+              sadness: [],
+              anger: [],
+              fear: [],
+              neutral: [{
+                emotion: 'neutral' as const,
+                userMessage: 'Parse error occurred',
+                agentQuestion: 'Analysis failed',
+                agentResponse: 'Invalid response format - please try again'
+              }]
+            };
+          }
         }
       }
       

@@ -19,7 +19,7 @@ app = FastAPI(title="Mind+Motion AI Service", version="1.0.0")
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js frontend
+    allow_origins=["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"],  # Next.js frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
