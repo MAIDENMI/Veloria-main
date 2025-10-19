@@ -16,27 +16,13 @@ export default function LandingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // For static deployment, we'll use a simple client-side validation
-    // In production, you can integrate with services like:
-    // - Netlify Forms
-    // - Formspree
-    // - ConvertKit
-    // - Mailchimp
-    
-    if (email && email.includes('@')) {
-      // Store in localStorage for demo purposes
-      const existingEmails = JSON.parse(localStorage.getItem('waitlistEmails') || '[]');
-      existingEmails.push({ email, timestamp: new Date().toISOString() });
-      localStorage.setItem('waitlistEmails', JSON.stringify(existingEmails));
-      
-      setIsSubmitted(true);
-      setEmail('');
-      
-      // Log for demo purposes
-      console.log(`Waitlist signup: ${email}`);
-    } else {
-      alert('Please enter a valid email address.');
-    }
+    // Redirect to Google Form for early access signup
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfY-zP_9lekDjqvTtvDpZTxsFyqKwHHkHe4ZU1jLkqMN7VbUg/viewform?usp=dialog', '_blank');
+  };
+
+  const handleGetEarlyAccess = () => {
+    // Redirect to Google Form for early access signup
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfY-zP_9lekDjqvTtvDpZTxsFyqKwHHkHe4ZU1jLkqMN7VbUg/viewform?usp=dialog', '_blank');
   };
 
   return (
@@ -58,7 +44,7 @@ export default function LandingPage() {
               <Button 
                 size="sm" 
                 className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-full"
-                onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={handleGetEarlyAccess}
               >
                 Get Early Access
               </Button>
@@ -89,7 +75,7 @@ export default function LandingPage() {
                 <Button 
                   size="lg" 
                   className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg rounded-full"
-                  onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={handleGetEarlyAccess}
                 >
                   Get Early Access
                 </Button>
@@ -435,7 +421,7 @@ export default function LandingPage() {
                   <Button 
                     size="lg" 
                     className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 text-lg rounded-full shadow-lg"
-                    onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+                    onClick={handleGetEarlyAccess}
                   >
                     Try Veloria Now
                   </Button>

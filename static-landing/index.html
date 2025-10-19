@@ -27,7 +27,7 @@
                     <img src="logon2.png" alt="Veloria" class="w-auto h-24" />
                 </div>
                 <div class="flex items-center">
-                    <button class="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-full text-sm" onclick="scrollToWaitlist()">
+                    <button class="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-full text-sm" onclick="openGoogleForm()">
                         Get Early Access
                     </button>
                 </div>
@@ -49,7 +49,7 @@
                         An AI therapist that understands your emotions, provides personalized support, and adapts to your mental health journey, from day one.
                     </p>
 
-                    <button class="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg rounded-full" onclick="scrollToWaitlist()">
+                    <button class="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg rounded-full" onclick="openGoogleForm()">
                         Get Early Access
                     </button>
                 </div>
@@ -198,28 +198,14 @@
     </footer>
 
     <script>
-        function scrollToWaitlist() {
-            document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+        function openGoogleForm() {
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSfY-zP_9lekDjqvTtvDpZTxsFyqKwHHkHe4ZU1jLkqMN7VbUg/viewform?usp=dialog', '_blank');
         }
 
         function handleSubmit(event) {
             event.preventDefault();
-            const email = document.getElementById('email-input').value;
-            
-            if (email && email.includes('@')) {
-                // Store in localStorage for demo purposes
-                const existingEmails = JSON.parse(localStorage.getItem('waitlistEmails') || '[]');
-                existingEmails.push({ email, timestamp: new Date().toISOString() });
-                localStorage.setItem('waitlistEmails', JSON.stringify(existingEmails));
-                
-                // Show success message
-                document.getElementById('waitlist-form').classList.add('hidden');
-                document.getElementById('success-message').classList.remove('hidden');
-                
-                console.log(`Waitlist signup: ${email}`);
-            } else {
-                alert('Please enter a valid email address.');
-            }
+            // Redirect to Google Form for early access signup
+            openGoogleForm();
         }
     </script>
 </body>
