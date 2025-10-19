@@ -63,13 +63,13 @@ export const Brain3D = ({
       positions[i3 + 2] = z + wrinkle;
       
       // Color gradient from deep purple to bright cyan
-      const intensity = 0.3 + Math.random() * 0.7;
-      colors[i3] = 0.4 * intensity;     // R - purple/blue
-      colors[i3 + 1] = 0.1 * intensity; // G - minimal green
-      colors[i3 + 2] = 0.8 * intensity; // B - strong blue
+      const intensity = 0.5 + Math.random() * 0.5;
+      colors[i3] = 0.6 * intensity;     // R - more red for visibility
+      colors[i3 + 1] = 0.2 * intensity; // G - some green
+      colors[i3 + 2] = 1.0 * intensity; // B - strong blue
       
-      // Varying particle sizes
-      sizes[i] = Math.random() * 3 + 1;
+      // Larger particle sizes for better visibility
+      sizes[i] = Math.random() * 5 + 2;
       
       // Create neural connections between nearby particles
       if (connectionIndex < 600 * 6 && i > 0 && Math.random() < 0.15) {
@@ -167,11 +167,11 @@ export const Brain3D = ({
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.05}
+          size={0.15}
           sizeAttenuation={true}
           vertexColors={true}
           transparent={true}
-          opacity={0.8}
+          opacity={0.9}
           blending={THREE.AdditiveBlending}
         />
       </points>
@@ -191,8 +191,9 @@ export const Brain3D = ({
         <lineBasicMaterial
           vertexColors={true}
           transparent={true}
-          opacity={0.4}
+          opacity={0.6}
           blending={THREE.AdditiveBlending}
+          linewidth={2}
         />
       </lineSegments>
     </group>

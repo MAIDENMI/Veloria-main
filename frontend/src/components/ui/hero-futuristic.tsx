@@ -71,79 +71,63 @@ export const HeroFuturistic = ({
     if (visibleWords < titleWords.length) {
       const timeout = setTimeout(() => setVisibleWords(visibleWords + 1), 600);
       return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => setSubtitleVisible(true), 800);
-      return () => clearTimeout(timeout);
     }
   }, [visibleWords, titleWords.length]);
 
   return (
-    <div className="h-screen relative overflow-hidden bg-black">
-      {/* Text Overlay */}
-      <div className="h-screen uppercase items-center w-full absolute z-50 pointer-events-none px-10 flex justify-center flex-col">
-        <div className="text-3xl md:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold">
-          <div className="flex space-x-2 lg:space-x-6 overflow-hidden text-white">
-            {titleWords.map((word, index) => (
-              <div
-                key={index}
-                className={`transition-opacity duration-1000 ${index < visibleWords ? 'fade-in' : ''}`}
-                style={{ 
-                  animationDelay: `${index * 0.13 + (delays[index] || 0)}s`,
-                  opacity: index < visibleWords ? undefined : 0 
-                }}
-              >
-                {word}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="text-xs md:text-xl xl:text-2xl 2xl:text-3xl mt-2 overflow-hidden text-white font-bold normal-case">
-          <div
-            className={`transition-opacity duration-1000 ${subtitleVisible ? 'fade-in-subtitle' : ''}`}
-            style={{ 
-              animationDelay: `${titleWords.length * 0.13 + 0.2 + subtitleDelay}s`,
-              opacity: subtitleVisible ? undefined : 0 
-            }}
-          >
-            {subtitle}
-          </div>
-        </div>
+    <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      {/* Content - positioned on the left */}
+      <div className="relative z-10 flex flex-col justify-center min-h-screen px-8 lg:px-16 w-1/2">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          <span className="bg-gradient-to-r from-white via-gray-200 to-gray-300 bg-clip-text text-transparent">
+            BREAKTHROUGH AI THERAPY
+          </span>
+        </h1>
+        
+        <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl leading-relaxed">
+          Revolutionary mental health solutions powered by advanced AI, voice interaction, and immersive 3D experiences
+        </p>
       </div>
 
-      {/* CTA Button */}
-      <button
-        className="explore-btn pointer-events-auto"
-        style={{ animationDelay: '2.2s' }}
-        onClick={onButtonClick}
-      >
-        {buttonText}
-        <span className="explore-arrow">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="arrow-svg">
-            <path d="M11 5V17" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-            <path d="M6 12L11 17L16 12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
-        </span>
-      </button>
+      {/* CTA Button - positioned in left section */}
+      <div className="absolute bottom-20 left-8 lg:left-16 z-20">
+        <button
+          className="explore-btn pointer-events-auto"
+          style={{ animationDelay: '2.2s' }}
+          onClick={onButtonClick}
+        >
+          {buttonText}
+          <span className="explore-arrow">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="arrow-svg">
+              <path d="M11 5V17" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M6 12L11 17L16 12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </span>
+        </button>
+      </div>
 
-      {/* 3D Canvas */}
-      <Canvas
-        className="absolute inset-0"
-        camera={{ position: [0, 0, 8], fov: 60 }}
-      >
-        {/* Real 3D Brain Model */}
-        <RealBrain3D 
-          scale={1.2}
-          position={[0, 0, 0]}
-          rotationSpeed={0.015}
-        />
-        
-        {/* Cool, clinical lighting for holographic effect */}
-        <ambientLight intensity={0.3} color="#e0f7fa" />
-        <pointLight position={[10, 10, 10]} intensity={1.2} color="#40e0d0" />
-        <pointLight position={[-10, -10, 10]} intensity={1.0} color="#87ceeb" />
-        <pointLight position={[0, 10, -10]} intensity={0.8} color="#b0e0e6" />
-        <directionalLight position={[0, 0, 15]} intensity={0.6} color="#f0f8ff" />
-      </Canvas>
+      {/* 3D Canvas - positioned on the right */}
+      <div className="absolute right-0 top-0 w-1/2 h-full">
+        <Canvas
+          className="w-full h-full"
+          camera={{ position: [0, 0, 8], fov: 60 }}
+        >
+          {/* Real 3D Brain Model */}
+          <RealBrain3D 
+            scale={1.2}
+            position={[0, 0, 0]}
+            rotationSpeed={0.015}
+          />
+          
+          {/* Warm, uplifting lighting */}
+          <ambientLight intensity={0.3} color="#fef3c7" />
+          <pointLight position={[10, 10, 10]} intensity={1.8} color="#fbbf24" />
+          <pointLight position={[-10, -10, 10]} intensity={1.5} color="#10b981" />
+          <pointLight position={[0, 10, -10]} intensity={1.2} color="#3b82f6" />
+          <pointLight position={[8, -8, 8]} intensity={1.0} color="#a855f7" />
+          <directionalLight position={[0, 0, 15]} intensity={0.5} color="#ffffff" />
+        </Canvas>
+      </div>
     </div>
   );
 };
