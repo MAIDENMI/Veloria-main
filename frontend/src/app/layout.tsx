@@ -18,9 +18,12 @@ export const metadata: Metadata = {
   title: "Veloria - AI Therapy",
   description: "Your personal AI therapy companion providing personalized mental health support",
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/logon2.png', sizes: '192x192', type: 'image/png' },
+    ],
     shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    apple: '/logon2.png',
   },
   other: {
     'google-site-verification': 'G-VG5C7LW712',
