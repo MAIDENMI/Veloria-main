@@ -15,24 +15,27 @@ export default function LandingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+    
+    // For static deployment, we'll use a simple client-side validation
+    // In production, you can integrate with services like:
+    // - Netlify Forms
+    // - Formspree
+    // - ConvertKit
+    // - Mailchimp
+    
+    if (email && email.includes('@')) {
+      // Store in localStorage for demo purposes
+      const existingEmails = JSON.parse(localStorage.getItem('waitlistEmails') || '[]');
+      existingEmails.push({ email, timestamp: new Date().toISOString() });
+      localStorage.setItem('waitlistEmails', JSON.stringify(existingEmails));
       
-      if (response.ok) {
-        setIsSubmitted(true);
-        setEmail('');
-      } else {
-        alert('Failed to join waitlist. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Failed to join waitlist. Please try again.');
+      setIsSubmitted(true);
+      setEmail('');
+      
+      // Log for demo purposes
+      console.log(`Waitlist signup: ${email}`);
+    } else {
+      alert('Please enter a valid email address.');
     }
   };
 
