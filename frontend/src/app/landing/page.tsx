@@ -35,25 +35,26 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white z-50">
+      <nav className="fixed top-0 w-full bg-white z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-28">
-            <div className="flex items-center -ml-2">
+          <div className="flex justify-between items-center h-16 sm:h-20 lg:h-28">
+            <div className="flex items-center">
               <Image 
-                src="/logon2.png" 
-                alt="Veloria" 
+                src="/Velorialogo.png" 
+                alt="Veloria Logo" 
                 width={350} 
                 height={120}
-                className="w-auto h-24"
+                className="w-auto h-12 sm:h-16 lg:h-24"
               />
             </div>
             <div className="flex items-center">
               <Button 
                 size="sm" 
-                className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-full"
+                className="bg-black hover:bg-gray-800 text-white px-3 py-2 sm:px-6 sm:py-2 text-sm sm:text-base rounded-full"
                 onClick={handleGetEarlyAccess}
               >
-                Get Early Access
+                <span className="hidden sm:inline">Get Early Access</span>
+                <span className="sm:hidden">Join Beta</span>
               </Button>
             </div>
           </div>
@@ -61,19 +62,19 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <section className="pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             {/* Left Side - Text */}
-            <div className="max-w-2xl">
+            <div className="max-w-2xl text-center lg:text-left">
               <BlurFade delay={0.1} yOffset={30} duration={0.8}>
-                <h1 className="text-6xl md:text-7xl font-bold mb-8 tracking-tight leading-none">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 tracking-tight leading-tight">
                   Meet <span className="text-cyan-400">Veloria</span>
                 </h1>
               </BlurFade>
               
               <BlurFade delay={0.3} yOffset={20} duration={0.6}>
-                <p className="text-xl md:text-2xl text-gray-700 mb-10 leading-relaxed font-light">
+                <p className="text-lg sm:text-xl lg:text-2xl text-gray-700 mb-8 sm:mb-10 leading-relaxed font-light">
                   An AI therapist that understands your emotions, provides personalized support, and adapts to your mental health journey, from day one.
                 </p>
               </BlurFade>
@@ -81,7 +82,7 @@ export default function LandingPage() {
               <BlurFade delay={0.5} yOffset={20} duration={0.6}>
                 <Button 
                   size="lg" 
-                  className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg rounded-full"
+                  className="bg-black hover:bg-gray-800 text-white px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-full w-full sm:w-auto"
                   onClick={handleGetEarlyAccess}
                 >
                   Get Early Access
@@ -95,20 +96,20 @@ export default function LandingPage() {
                 {/* Mobile/Tablet Layout - Stack vertically */}
                 <div className="block lg:hidden">
                   {/* Main Image */}
-                  <div className="flex justify-center mb-8">
+                  <div className="flex justify-center mb-6 sm:mb-8">
                     <Image 
                       src="/hero1.png" 
                       alt="Live Therapy Session with Veloria" 
                       width={320} 
                       height={220}
-                      className="rounded-2xl shadow-2xl border border-gray-200 w-[280px] sm:w-[320px] h-auto"
+                      className="rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl border border-gray-200 w-[260px] sm:w-[300px] md:w-[350px] h-auto"
                     />
                   </div>
                   
                   {/* Panels in 2x2 Grid */}
-                  <div className="grid grid-cols-2 gap-4 max-w-lg mx-auto mb-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-sm sm:max-w-lg mx-auto mb-6">
                     {/* Chat Interface */}
-                    <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-3">
+                    <div className="bg-white rounded-lg sm:rounded-xl shadow-lg border border-gray-200 p-3 sm:p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-5 h-5 rounded-full bg-gradient-to-br from-purple-500 to-pink-500"></div>
                         <div>
@@ -138,7 +139,7 @@ export default function LandingPage() {
                     </div>
 
                     {/* Mood Tracking */}
-                    <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-3">
+                    <div className="bg-white rounded-lg sm:rounded-xl shadow-lg border border-gray-200 p-3 sm:p-4">
                       <div className="text-xs font-semibold text-gray-900 mb-2">Mood Tracking</div>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
@@ -166,7 +167,7 @@ export default function LandingPage() {
                     </div>
 
                     {/* Session Insights */}
-                    <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-3">
+                    <div className="bg-white rounded-lg sm:rounded-xl shadow-lg border border-gray-200 p-3 sm:p-4">
                       <div className="text-sm font-semibold text-gray-900 mb-2">Session Insights</div>
                       <div className="space-y-2 text-xs text-gray-600">
                         <div className="flex items-start gap-2">
@@ -185,7 +186,7 @@ export default function LandingPage() {
                     </div>
 
                     {/* Weekly Progress */}
-                    <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-3">
+                    <div className="bg-white rounded-lg sm:rounded-xl shadow-lg border border-gray-200 p-3 sm:p-4">
                       <div className="text-sm font-semibold text-gray-900 mb-2">Weekly Progress</div>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
@@ -203,8 +204,8 @@ export default function LandingPage() {
                   </div>
                   
                   {/* Caption */}
-                  <div className="text-center">
-                    <div className="inline-block bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium">
+                  <div className="text-center px-4">
+                    <div className="inline-block bg-black/80 text-white px-4 py-2 rounded-full text-sm font-medium max-w-xs sm:max-w-none">
                       See how Veloria brings empathy and intelligence together.
                     </div>
                   </div>
@@ -332,18 +333,18 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-32 bg-white">
+      {/* Intelligence Section */}
+      <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-cyan-50/30 via-blue-50/20 to-purple-50/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <BlurFade delay={0.1} yOffset={50} duration={1.0} inViewMargin="0px">
-            <div className="text-center mb-20">
-              <h2 className="text-5xl md:text-6xl font-bold text-black mb-8 tracking-tight">
+          <BlurFade delay={0.1}>
+            <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6 sm:mb-8 tracking-tight">
                 Intelligence that understands you
               </h2>
             </div>
           </BlurFade>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
             <BlurFade delay={0.2}>
               <div className="text-left">
                 {/* Lightning Icon */}
@@ -408,18 +409,18 @@ export default function LandingPage() {
       </section>
 
       {/* See Veloria in Action Section */}
-      <section className="py-32 bg-gradient-to-br from-purple-50/30 via-pink-50/20 to-blue-50/30">
+      <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-purple-50/30 via-pink-50/20 to-blue-50/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20 items-center">
             {/* Left Side - Text */}
-            <div className="max-w-2xl">
+            <div className="max-w-2xl text-center lg:text-left">
               <BlurFade delay={0.1}>
-                <h2 className="text-5xl md:text-6xl font-bold text-black mb-6 tracking-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6 tracking-tight">
                   See <span className="text-cyan-400">Veloria</span> <span className="block">in action</span>
                 </h2>
               </BlurFade>
               <BlurFade delay={0.2}>
-                <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                <p className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
                   Experience real-time AI therapy sessions with natural conversation, emotional understanding, and personalized support tailored to your mental health journey.
                 </p>
               </BlurFade>
@@ -427,7 +428,7 @@ export default function LandingPage() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
                     size="lg" 
-                    className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 text-lg rounded-full shadow-lg"
+                    className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-full shadow-lg w-full sm:w-auto"
                     onClick={handleGetEarlyAccess}
                   >
                     Try Veloria Now
@@ -435,7 +436,7 @@ export default function LandingPage() {
                   <Button 
                     variant="outline"
                     size="lg" 
-                    className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-8 py-4 text-lg rounded-full"
+                    className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-full w-full sm:w-auto"
                   >
                     Learn More
                   </Button>
@@ -444,16 +445,16 @@ export default function LandingPage() {
             </div>
 
             {/* Right Side - Enhanced Video */}
-            <div className="relative flex justify-center lg:justify-end">
+            <div className="relative flex justify-center lg:justify-end order-first lg:order-last">
               <BlurFade delay={0.4}>
                 <div className="relative">
                   {/* Background Glow Effect */}
-                  <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400/20 via-purple-400/20 to-pink-400/20 rounded-3xl blur-xl"></div>
+                  <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-cyan-400/20 via-purple-400/20 to-pink-400/20 rounded-2xl sm:rounded-3xl blur-xl"></div>
                   
                   {/* Video Container */}
-                  <div className="relative bg-white p-2 rounded-3xl shadow-2xl">
+                  <div className="relative bg-white p-1 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl">
                     <video 
-                      className="w-full max-w-sm h-auto rounded-2xl"
+                      className="w-full max-w-xs sm:max-w-sm h-auto rounded-xl sm:rounded-2xl"
                       autoPlay 
                       loop 
                       muted 
@@ -476,64 +477,64 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-32 bg-gradient-to-br from-blue-50/40 via-purple-50/30 to-pink-50/40">
+      <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-blue-50/40 via-purple-50/30 to-pink-50/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <BlurFade delay={0.1}>
-            <div className="text-center mb-20">
-              <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8 tracking-tight">
+            <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 sm:mb-8 tracking-tight">
                 What people are saying
               </h2>
             </div>
           </BlurFade>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
             <BlurFade delay={0.2}>
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-100">
                 <div className="flex justify-center mb-6">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
                     <span className="text-white font-semibold text-lg">S</span>
                   </div>
                 </div>
-                <blockquote className="text-gray-800 text-lg leading-relaxed mb-6 text-center">
+                <blockquote className="text-gray-800 text-base sm:text-lg leading-relaxed mb-6 text-center">
                   "It felt like talking to someone who actually understood. I could open up without fear."
                 </blockquote>
                 <div className="text-center">
-                  <div className="font-semibold text-gray-900 text-lg">Sophia</div>
-                  <div className="text-gray-600">Student</div>
+                  <div className="font-semibold text-gray-900 text-base sm:text-lg">Sophia</div>
+                  <div className="text-gray-600 text-sm sm:text-base">Student</div>
                 </div>
               </div>
             </BlurFade>
 
             <BlurFade delay={0.3}>
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-100">
                 <div className="flex justify-center mb-6">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
                     <span className="text-white font-semibold text-lg">D</span>
                   </div>
                 </div>
-                <blockquote className="text-gray-800 text-lg leading-relaxed mb-6 text-center">
+                <blockquote className="text-gray-800 text-base sm:text-lg leading-relaxed mb-6 text-center">
                   "Veloria helped me manage my stress during finals. The calm voice and breathing reminders really worked."
                 </blockquote>
                 <div className="text-center">
-                  <div className="font-semibold text-gray-900 text-lg">David</div>
-                  <div className="text-gray-600">Graduate Student</div>
+                  <div className="font-semibold text-gray-900 text-base sm:text-lg">David</div>
+                  <div className="text-gray-600 text-sm sm:text-base">Graduate Student</div>
                 </div>
               </div>
             </BlurFade>
 
             <BlurFade delay={0.4}>
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-100">
                 <div className="flex justify-center mb-6">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
                     <span className="text-white font-semibold text-lg">L</span>
                   </div>
                 </div>
-                <blockquote className="text-gray-800 text-lg leading-relaxed mb-6 text-center">
+                <blockquote className="text-gray-800 text-base sm:text-lg leading-relaxed mb-6 text-center">
                   "I didn't expect an AI to sound this human. It listens, adapts, and remembers my emotions."
                 </blockquote>
                 <div className="text-center">
-                  <div className="font-semibold text-gray-900 text-lg">Liam</div>
-                  <div className="text-gray-600">Marketing Professional</div>
+                  <div className="font-semibold text-gray-900 text-base sm:text-lg">Liam</div>
+                  <div className="text-gray-600 text-sm sm:text-base">Marketing Professional</div>
                 </div>
               </div>
             </BlurFade>
@@ -542,10 +543,10 @@ export default function LandingPage() {
       </section>
 
       {/* Support Section */}
-      <section className="py-32 bg-gradient-to-b from-gray-50/30 via-gray-100/20 to-gray-50/40">
+      <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-gray-50/30 via-gray-100/20 to-gray-50/40">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <BlurFade delay={0.1}>
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-12 tracking-tight whitespace-nowrap">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 sm:mb-12 tracking-tight">
               Support whenever you need it
             </h2>
           </BlurFade>
