@@ -35,9 +35,9 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white z-50 border-b border-gray-100">
+      <nav className="fixed top-0 w-full bg-white z-50 border-b border-gray-100 safe-area-inset-top">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20 lg:h-28">
+          <div className="flex justify-between items-center h-20 sm:h-20 lg:h-28">
             <div className="flex items-center">
               <Image 
                 src="/Velorialogo.png" 
@@ -62,7 +62,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8">
+      <section className="pt-28 sm:pt-32 lg:pt-40 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             {/* Left Side - Text */}

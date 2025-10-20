@@ -25,6 +25,11 @@ export const metadata: Metadata = {
     shortcut: '/favicon.ico',
     apple: '/logon2.png',
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    viewportFit: 'cover',
+  },
   other: {
     'google-site-verification': 'G-VG5C7LW712',
   },
