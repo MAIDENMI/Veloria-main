@@ -490,51 +490,36 @@ export default function LandingPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
             <BlurFade delay={0.2}>
               <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-100">
-                <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-                    <span className="text-white font-semibold text-lg">S</span>
-                  </div>
-                </div>
                 <blockquote className="text-gray-800 text-base sm:text-lg leading-relaxed mb-6 text-center">
-                  "It felt like talking to someone who actually understood. I could open up without fear."
+                  "Veloria has been a game-changer for managing work stress. The AI really understands the pressure of tech deadlines and helps me stay balanced."
                 </blockquote>
                 <div className="text-center">
-                  <div className="font-semibold text-gray-900 text-base sm:text-lg">Sophia</div>
-                  <div className="text-gray-600 text-sm sm:text-base">Student</div>
+                  <div className="font-semibold text-gray-900 text-base sm:text-lg">Mohan</div>
+                  <div className="text-gray-600 text-sm sm:text-base">Staff Engineer at PayPal</div>
                 </div>
               </div>
             </BlurFade>
 
             <BlurFade delay={0.3}>
               <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-100">
-                <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
-                    <span className="text-white font-semibold text-lg">D</span>
-                  </div>
-                </div>
                 <blockquote className="text-gray-800 text-base sm:text-lg leading-relaxed mb-6 text-center">
-                  "Veloria helped me manage my stress during finals. The calm voice and breathing reminders really worked."
+                  "As a student dealing with academic pressure, Veloria helped me develop better coping strategies. The 24/7 availability is incredible."
                 </blockquote>
                 <div className="text-center">
                   <div className="font-semibold text-gray-900 text-base sm:text-lg">David</div>
-                  <div className="text-gray-600 text-sm sm:text-base">Graduate Student</div>
+                  <div className="text-gray-600 text-sm sm:text-base">Grambling State University</div>
                 </div>
               </div>
             </BlurFade>
 
             <BlurFade delay={0.4}>
               <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-100">
-                <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
-                    <span className="text-white font-semibold text-lg">L</span>
-                  </div>
-                </div>
                 <blockquote className="text-gray-800 text-base sm:text-lg leading-relaxed mb-6 text-center">
-                  "I didn't expect an AI to sound this human. It listens, adapts, and remembers my emotions."
+                  "Managing team stress while juggling multiple projects was overwhelming. Veloria taught me mindfulness techniques that I now use daily."
                 </blockquote>
                 <div className="text-center">
-                  <div className="font-semibold text-gray-900 text-base sm:text-lg">Liam</div>
-                  <div className="text-gray-600 text-sm sm:text-base">Marketing Professional</div>
+                  <div className="font-semibold text-gray-900 text-base sm:text-lg">Charisse</div>
+                  <div className="text-gray-600 text-sm sm:text-base">Project Manager</div>
                 </div>
               </div>
             </BlurFade>
