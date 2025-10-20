@@ -495,7 +495,7 @@ export default function LandingPage() {
                 </blockquote>
                 <div className="text-center">
                   <div className="font-semibold text-gray-900 text-base sm:text-lg">Mohan</div>
-                  <div className="text-gray-600 text-sm sm:text-base">Staff Engineer at PayPal</div>
+                  <div className="text-gray-600 text-sm sm:text-base">Mentor</div>
                 </div>
               </div>
             </BlurFade>
